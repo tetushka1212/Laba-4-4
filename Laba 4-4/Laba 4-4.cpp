@@ -2,10 +2,50 @@
 //
 
 #include <iostream>
+#include "Kramer.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    Matrix m1(2, 2);
+    m1.setElement(0, 0, 1.0);
+    m1.setElement(0, 1, 2.0);
+    m1.setElement(1, 0, 3.0);
+    m1.setElement(1, 1, 4.0);
+
+    Matrix m2(2, 2);
+    m2.setElement(0, 0, 5.0);
+    m2.setElement(0, 1, 6.0);
+    m2.setElement(1, 0, 7.0);
+    m2.setElement(1, 1, 8.0);
+
+    std::cout << "Matrix m1:" << std::endl;
+    m1.Print();
+
+    std::cout << "Matrix m2:" << std::endl;
+    m2.Print();
+
+    Matrix sum = m1.Add(m2);
+    std::cout << "Sum of matrixes:" << std::endl;
+    sum.Print();
+
+    Matrix scaled = m1.Multiply(m2);
+    std::cout << "Matrix m1 scaled by m2:" << std::endl;
+    scaled.Print();
+    
+
+    std::vector<std::vector<double>> data = { {2, 1, -1}, {-3, -1, 2}, {-2, 1, 2} };
+    std::vector<double> b = { 8, -11, -3 };
+    Matrix A(data);
+
+    Kramer cramer(A, b);
+
+    ofstream outfile("solution.txt");
+    outfile << cramer;
+    outfile.close();
+
+    std::cout << "Reshenie zapisano v file: solution.txt" << std::endl;
+    return 0;
+
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
